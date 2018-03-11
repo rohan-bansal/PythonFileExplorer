@@ -8,5 +8,5 @@ _A File Explorer/Finder made in Python. Can be used to store files._
 **To Do**
 1. Add Folders
 2. Finish Breadcrumb Path
-3. Display Files
+3. Display Files/Openable
 4. Open Files
