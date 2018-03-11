@@ -9,6 +9,8 @@ currentdir = ''
 SBseparator = tk.Frame(window, height = 580, width = 1, bg = "black")
 FP = tk.Label(window, text = '')
 AddFolder = tk.Button(window, text = 'Add File', command = lambda: create_file())
+contentLabel = tk.Label(window)
+contentLabel.place(x = 150, y = 80)
 
 FP.place(x = 150, y = 20)
 SBseparator.place(x = 100, y = 10)
@@ -18,6 +20,10 @@ def direction(type_):
     FilePath(type_)
     DisplayFiles(type_)
 
+FP.place(x = 150, y = 20)
+SBseparator.place(x = 100, y = 10)
+AddFolder.place(x = 700, y = 10)
+
 def FilePath(name):
     global FP
     global currentdir
@@ -25,7 +31,7 @@ def FilePath(name):
     currentdir = name
 
 def DisplayFiles(which):
-    pass 
+    contentLabel.config(text = '\n'.join(files[indexlist[which]][1:]))
 
 files = []
 
@@ -46,12 +52,10 @@ class SideBar():
         placeY += 70
     
     def add_file(self, folderIndex, filename):
-        global files
         files[folderIndex].append(filename)
         print(files)
     
     def create_file_list(self):
-        global files
         files.append(['Desktop'])
         files.append(['Documents'])
         files.append(['Pictures'])
