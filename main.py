@@ -8,13 +8,13 @@ placeY = 20
 currentdir = ''
 SBseparator = tk.Frame(window, height = 580, width = 1, bg = "black")
 FP = tk.Label(window, text = '')
-AddFolder = tk.Button(window, text = 'Add File', command = lambda: create_file())
+Addfiles = tk.Button(window, text = 'New File', command = lambda: create_file())
 contentLabel = tk.Label(window)
-contentLabel.place(x = 150, y = 80)
 
+contentLabel.place(x = 150, y = 80)
 FP.place(x = 150, y = 20)
 SBseparator.place(x = 100, y = 10)
-AddFolder.place(x = 700, y = 10)
+Addfiles.place(x = 700, y = 10)
 
 def direction(type_):
     FilePath(type_)
@@ -27,7 +27,11 @@ def FilePath(name):
     currentdir = name
 
 def DisplayFiles(which):
-    contentLabel.config(text = '\n'.join(files[indexlist[which]][1:]))
+    contentLabel.config(text = '\n\n'.join(files[indexlist[which]][1:]))
+
+def OpenFilePath(type__):
+    pass
+
 
 files = []
 
@@ -75,6 +79,7 @@ Music.create_folder(3)
 Trash.create_folder(4)
 
 def create_file():
+
     global indexlist
     global currentdir 
 
@@ -83,6 +88,7 @@ def create_file():
         global indexlist
         try:
             Desktop.add_file(indexlist[currentdir], entrycontent.get())  
+            newfile = open(entrycontent.get(), 'w')
             filenameD.destroy()
             filenameDE.destroy()
         except:
