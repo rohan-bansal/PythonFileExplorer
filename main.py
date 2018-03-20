@@ -1,5 +1,7 @@
 import tkinter as tk
+import os
 
+# INITIALIZATIONS
 window = tk.Tk()
 window.geometry('800x600')
 window.title('File Explorer')
@@ -8,14 +10,37 @@ placeY = 20
 currentdir = ''
 SBseparator = tk.Frame(window, height = 580, width = 1, bg = "black")
 FP = tk.Label(window, text = '')
-Addfiles = tk.Button(window, text = 'New File', command = lambda: create_file())
+Addfiles = tk.Button(window, text = 'New File', command = lambda: create_file(currentdir))
 contentLabel = tk.Label(window)
+path = os.path.dirname(os.path.abspath(__file__))
+desk_path = path + '/Desktop'
+doc_path = path + '/Documents'
+pic_path = path + '/Pictures'
+mus_path = path + '/Music'
+trash_path = path + '/Trash'
+
+indexlist = {
+    'Desktop': 0,
+    'Documents': 1,
+    'Pictures': 2,
+    'Music': 3,
+    'Trash': 4 }
+
+index_list = ['Desktop','Documents','Pictures','Music','Trash']
+path_list = [desk_path, doc_path, pic_path, mus_path, trash_path]
+
+for x in range(5):
+    if index_list[x] not in os.listdir(path):
+        os.mkdir(path_list[x])
+    else:
+        pass
 
 contentLabel.place(x = 150, y = 80)
 FP.place(x = 150, y = 20)
 SBseparator.place(x = 100, y = 10)
 Addfiles.place(x = 700, y = 10)
 
+# FILE DISPLAY
 def direction(type_):
     FilePath(type_)
     DisplayFiles(type_)
@@ -29,12 +54,9 @@ def FilePath(name):
 def DisplayFiles(which):
     contentLabel.config(text = '\n\n'.join(files[indexlist[which]][1:]))
 
-def OpenFilePath(type__):
-    pass
-
-
 files = []
 
+# SIDEBAR
 class SideBar():
     def __init__(self, name):
         global window
@@ -61,9 +83,6 @@ class SideBar():
         files.append(['Pictures'])
         files.append(['Music'])
         files.append(['Trash'])
-        print(files)
-
-
 
 Desktop = SideBar('Desktop')
 Documents = SideBar('Documents')
@@ -78,32 +97,25 @@ Pictures.create_folder(2)
 Music.create_folder(3)
 Trash.create_folder(4)
 
-def create_file():
+for f in range(5):
+    files[indexlist[index_list[f]]].extend(os.listdir(path_list[f]))
 
-    global indexlist
-    global currentdir 
-
-    def addftoClass(entrycontent):
+# CREATING FILES
+def create_file(currentd):
+    def addftoClass(entrycontent, currentdirectory):
         global currentdir
         global indexlist
         try:
             Desktop.add_file(indexlist[currentdir], entrycontent.get())  
-            newfile = open(entrycontent.get(), 'w')
+            #newfile = open(entrycontent.get(), 'w')
+            os.mknod(path + '/%s/%s' % (currentdirectory, entrycontent.get()))
             filenameD.destroy()
             filenameDE.destroy()
         except:
             pass
-
     filenameD = tk.Entry(window)
-    filenameDE = tk.Button(window, text = 'OK', command = lambda: addftoClass(filenameD))
+    filenameDE = tk.Button(window, text = 'OK', command = lambda: addftoClass(filenameD, currentd))
     filenameD.place(x = 620, y = 50)
     filenameDE.place(x = 575, y = 46)
-
-indexlist = {
-    'Desktop': 0,
-    'Documents': 1,
-    'Pictures': 2,
-    'Music': 3,
-    'Trash': 4 }
 
 window.mainloop()
