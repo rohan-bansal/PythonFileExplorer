@@ -1,5 +1,6 @@
 import tkinter as tk
-import os
+import os, platform, webbrowser
+
 
 # INITIALIZATIONS
 window = tk.Tk()
@@ -7,7 +8,7 @@ window.geometry('800x600')
 window.title('File Explorer')
 bl = []
 placeY = 20
-currentdir = ''
+currentdir = 'Desktop'
 SBseparator = tk.Frame(window, height = 580, width = 1, bg = "black")
 FP = tk.Label(window, text = '')
 Addfiles = tk.Button(window, text = 'New File', command = lambda: create_file(currentdir))
@@ -18,6 +19,7 @@ doc_path = path + '/Documents'
 pic_path = path + '/Pictures'
 mus_path = path + '/Music'
 trash_path = path + '/Trash'
+fileselect = tk.Listbox(window, width = 75, height = 33, bg = window.cget('bg'))
 
 indexlist = {
     'Desktop': 0,
@@ -28,7 +30,6 @@ indexlist = {
 
 index_list = ['Desktop','Documents','Pictures','Music','Trash']
 path_list = [desk_path, doc_path, pic_path, mus_path, trash_path]
-
 for x in range(5):
     if index_list[x] not in os.listdir(path):
         os.mkdir(path_list[x])
@@ -39,11 +40,13 @@ contentLabel.place(x = 150, y = 80)
 FP.place(x = 150, y = 20)
 SBseparator.place(x = 100, y = 10)
 Addfiles.place(x = 700, y = 10)
+fileselect.place(x = 140, y = 80)
 
 # FILE DISPLAY
 def direction(type_):
     FilePath(type_)
     DisplayFiles(type_)
+    open_file()
 
 def FilePath(name):
     global FP
@@ -52,7 +55,13 @@ def FilePath(name):
     currentdir = name
 
 def DisplayFiles(which):
-    contentLabel.config(text = '\n\n'.join(files[indexlist[which]][1:]))
+    fileselect.delete(0, 'end')
+    for item in files[indexlist[which]][1:]:
+        fileselect.insert('end', item)
+
+def open_file():
+    selection = fileselect.curselection()
+    pass
 
 files = []
 
@@ -107,7 +116,6 @@ def create_file(currentd):
         global indexlist
         try:
             Desktop.add_file(indexlist[currentdir], entrycontent.get())  
-            #newfile = open(entrycontent.get(), 'w')
             os.mknod(path + '/%s/%s' % (currentdirectory, entrycontent.get()))
             filenameD.destroy()
             filenameDE.destroy()
@@ -117,5 +125,8 @@ def create_file(currentd):
     filenameDE = tk.Button(window, text = 'OK', command = lambda: addftoClass(filenameD, currentd))
     filenameD.place(x = 620, y = 50)
     filenameDE.place(x = 575, y = 46)
+
+v = tk.StringVar()
+v.set('')
 
 window.mainloop()
