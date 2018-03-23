@@ -60,7 +60,7 @@ def DisplayFiles(which):
         fileselect.insert('end', item)
 
 def open_file():
-    selection = fileselect.curselection()
+    #selection = fileselect.curselection()
     pass
 
 files = []
