@@ -8,6 +8,4 @@ _NOTE: the main.py file is designed for linux, but may work on another OS.
 
 **To Do**
 1. Add Folders
-2. Finish Breadcrumb Path
-3. Display Files
-4. Open Files
+2. Open Files
