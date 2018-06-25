@@ -1,4 +1,4 @@
-# PythonFileExplorer
+# PythonFileExplorer 
 
 **A File Explorer/Finder made in Python. Can be used to store files.**
 
@@ -12,4 +12,4 @@
 1. Add Folders
 2. Open Files
 
-*After adding support for opening files, the project will no longer be updated, as I am moving on to Java now.*
+*After adding support for opening files, the project will no longer be updated, as I will be moving on to other projects.*
