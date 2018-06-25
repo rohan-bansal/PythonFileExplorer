@@ -11,3 +11,5 @@
 **To Do**
 1. Add Folders
 2. Open Files
+
+*After adding support for opening files, the project will no longer be updated, as I am moving on to more Java now.*
