@@ -7,9 +7,10 @@
 ### Details
 - Contains Five Folders
   - Pictures, Music, Documents, Trash, and Desktop
+  - Simple File Viewer
 
 **To Do**
 1. Add Folders
 2. Open Files
 
-*After adding support for opening files, the project will no longer be updated, as I will be moving on to other projects.*
+*The project will no longer be updated, as I will be moving on to other projects.*
