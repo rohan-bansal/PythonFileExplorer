@@ -1,5 +1,6 @@
 import tkinter as tk
 import os, platform, webbrowser
+from sys import platform
 
 
 # INITIALIZATIONS
@@ -14,6 +15,7 @@ FP = tk.Label(window, text = '')
 Addfiles = tk.Button(window, text = 'New File', command = lambda: create_file(currentdir))
 contentLabel = tk.Label(window)
 path = os.path.dirname(os.path.abspath(__file__))
+print(path)
 desk_path = path + '/Desktop'
 doc_path = path + '/Documents'
 pic_path = path + '/Pictures'
@@ -46,7 +48,6 @@ fileselect.place(x = 140, y = 80)
 def direction(type_):
     FilePath(type_)
     DisplayFiles(type_)
-    open_file()
 
 def FilePath(name):
     global FP
@@ -60,10 +61,17 @@ def DisplayFiles(which):
         fileselect.insert('end', item)
 
 def open_file():
-    #selection = fileselect.curselection()
-    pass
+    selection = fileselect.get('active')
+    if(platform == "linux" or platform == "linux2"):
+        os.system("gedit " + path + "/" + currentdir + "/" + selection)
+    elif(platform == "darwin"):
+        os.system("open " + path + "/" + currentdir + "/" + selection)
+    elif(platform == "win32" or platform == "cygwin"):
+        os.system("start " + path + "/" + currentdir + "/" + selection)
 
 files = []
+OpenFileNew = tk.Button(window, text = 'Open Selected File', command = open_file)
+OpenFileNew.place(x = 500, y = 10)
 
 # SIDEBAR
 class SideBar():
